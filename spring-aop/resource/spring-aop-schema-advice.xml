@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+       
+     
+	<bean id="moocAspect" class="com.kimi.aop.schema.advice.MoocAspect"></bean>
+	<bean id="aspectBiz" class="com.kimi.aop.schema.advice.biz.AspectBiz"></bean>
+	
+	<aop:config>
+		<!-- 环绕通知 
+		<aop:aspect id="moocAspectAOP" ref="moocAspect">
+			<aop:around method="aroundInit" pointcut="execution(* com.kimi.aop.schema.advice.biz.AspectBiz.init(String,int))
+						and args(bizName,times)"/>
+		</aop:aspect>
+		-->
+		<!-- 
+		<aop:aspect id="moocAspectAOP" ref="moocAspect">
+			<aop:pointcut expression="execution(* com.kimi.aop.schema.advice.biz.*Biz.*(..))" id="moocPiontcut"/>
+			<aop:before method="before" pointcut-ref="moocPiontcut"/>
+		</aop:aspect>
+		-->
+		<!-- introduction 更改父类 -->
+		<aop:aspect id="moocAspectAOP" ref="moocAspect">
+			<aop:declare-parents 
+				types-matching="com.kimi.aop.schema.advice.biz.*(+)" 
+				implement-interface="com.kimi.aop.schema.advice.biz.Fit"
+				default-impl="com.kimi.aop.schema.advice.biz.Fitlter"/>
+		</aop:aspect>
+	</aop:config>
+</beans>
