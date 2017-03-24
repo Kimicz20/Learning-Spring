@@ -5,6 +5,7 @@ package org.seckill.Dto;
  * @author geek
  *
  */
+
 public class Exposer {
 
 	//ÊÇ·ñ±©Â¶ÃëÉ±µØÖ·
